@@ -54,6 +54,15 @@ type ethNetwork = 'mainnet' | 'kovan' | 'goerli'
     })
 
     await service.start()
+
+    const stop = async (signal) => {
+      console.log(`${signal} - Stopping data-transport layer`)
+      await service.stop()
+      process.exit()
+    }
+
+    process.on('SIGTERM', stop)
+    process.on('SIGINT', stop)
   } catch (err) {
     console.error(
       `Well, that's that. We ran into a fatal error. Here's the dump. Goodbye!`
